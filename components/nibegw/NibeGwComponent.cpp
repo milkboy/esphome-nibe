@@ -102,7 +102,7 @@ int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
 }
 
 void NibeGwComponent::setup() {
-    esphome::delay(10000);
+    //esphome::delay(100);
     ESP_LOGI(TAG, "Starting up");
     gw_->connect();
     ESP_LOGI(TAG, "Started up");
