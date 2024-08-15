@@ -66,7 +66,7 @@ void NibeGwComponent::token_request_cache(AsyncUDPPacket& udp, byte address, byt
 
 static int copy_request(const request_data_type& request, byte* data)
 {
-    ESP_LOGV('FFFFUUUU', "Copy request %s", data);
+    ESP_LOGV("FFFFUUUU", "Copy request %s", data);
     auto len = std::min(request.size(), (size_t)MAX_DATA_LEN);
     std::copy_n(request.begin(), len, data);
     return len;
