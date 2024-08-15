@@ -133,7 +133,7 @@ void NibeGw::loop()
         {
           buffer[index++] = b;
           int msglen = checkNibeMessage(buffer, index);
-          ESP_LOGVV(TAG, "checkMsg=%d", msglen);
+          ESP_LOGV(TAG, "checkMsg=%d", msglen);
 
           switch (msglen)
           {
@@ -149,8 +149,8 @@ void NibeGw::loop()
             {
               sprintf(debug_buf + i*3, "%02X ", buffer[i]);
             }
-            ESP_LOGVV(TAG, "Message of %d bytes received from heat pump: %s", msglen, debug_buf);
 #endif
+            ESP_LOGV(TAG, "Message of %d bytes received from heat pump: %s", msglen, debug_buf);
 
             callback_msg_received(buffer, index);
           }
@@ -236,6 +236,7 @@ int NibeGw::checkNibeMessage(const byte* const data, byte len)
           return -2;
       }
 
+      ESP_LOGV(TAG, "checksum=%02X, msg_checksum=%02X", checksum, msg_checksum);
       return datalen + 6;
     }
   }
@@ -258,8 +259,8 @@ void NibeGw::sendData(const byte* const data, byte len)
   {
     sprintf(debug_buf + i*3, "%02X ", data[i]);
   }
-  ESP_LOGVV(TAG, "Sent message of %d bytes to heat pump: %s", len, debug_buf);
 #endif
+  ESP_LOGV(TAG, "Sent message of %d bytes to heat pump: %s", len, debug_buf);
 
 }
 
