@@ -72,15 +72,21 @@ void NibeGw::setSendAcknowledge(boolean val)
 
 boolean NibeGw::messageStillOnProgress()
 {
-  if (!connectionState)
+  if (!connectionState) {
+    ESP_LOGW(TAG, "No connection");
     return false;
+  }
 
-  if ( RS485->available() > 0)
+  if ( RS485->available() > 0) {
+    ESP_LOGW(TAG, "More data available");
     return true;
+  }
 
   if (state == STATE_CRC_FAILURE || state == STATE_OK_MESSAGE_RECEIVED || state == STATE_WAIT_DATA)
+    ESP_LOGD(TAG, "CRCFail/OK/Wait");
     return true;
 
+  ESP_LOGI(TAG, "No data");
   return false;
 }
 
