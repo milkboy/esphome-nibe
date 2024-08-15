@@ -106,13 +106,13 @@ void NibeGw::loop()
           {
             buffer[1] = 0x00;
             state = STATE_WAIT_START;
-            ESP_LOGVV(TAG, "Ignore double start");
+            ESP_LOGD(TAG, "Ignore double start");
           }
           else
           {
             index = 2;
             state = STATE_WAIT_DATA;
-            ESP_LOGVV(TAG, "Frame start found");
+            ESP_LOGD(TAG, "Frame start found");
           }
         }
       }
@@ -226,7 +226,7 @@ int NibeGw::checkNibeMessage(const byte* const data, byte len)
 
       byte msg_checksum = data[datalen + 5];
 
-      ESP_LOGVV(TAG, "checksum=%02X, msg_checksum=%02X", checksum, msg_checksum);
+      ESP_LOGV(TAG, "checksum=%02X, msg_checksum=%02X", checksum, msg_checksum);
 
       if (checksum != msg_checksum)
       {
@@ -250,7 +250,7 @@ void NibeGw::sendData(const byte* const data, byte len)
     directionPin->digital_write(true);
   RS485->write_array(data, len);
   RS485->flush();
-  esphome::delay(1);
+  esphome::delay(25);
   if(directionPin)
     directionPin->digital_write(false);
 

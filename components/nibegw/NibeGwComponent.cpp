@@ -19,7 +19,7 @@ NibeGwComponent::NibeGwComponent(esphome::GPIOPin* dir_pin)
 void NibeGwComponent::callback_msg_received(const byte* const data, int len)
 {
     if (!is_connected_) {
-        ESP_LOGW(TAG, "Cannot send, not conencted");
+        ESP_LOGW(TAG, "Cannot send, not connected");
         return;
     }
 
@@ -73,6 +73,7 @@ static int copy_request(const request_data_type& request, byte* data)
 
 int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
 {
+    ESP_LOGD(TAG, "callback msh token received");
 
     request_key_type key {data[2], static_cast<byte>(token)};
 
@@ -101,6 +102,7 @@ int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
 }
 
 void NibeGwComponent::setup() {
+  esphome::delay(2000);
     ESP_LOGI(TAG, "Starting up");
     gw_->connect();
 }
