@@ -177,12 +177,12 @@ void NibeGw::loop()
         if (msglen > 0)
         {
           sendData(buffer, (byte) msglen);
-          ESP_LOGVV(TAG, "Responded to token %02X", buffer[3]);
+          ESP_LOGV(TAG, "Responded to token %02X", buffer[3]);
         }
         else
         {
           sendAck();
-          ESP_LOGVV(TAG, "Had no response to token %02X ", buffer[3]);
+          ESP_LOGV(TAG, "Had no response to token %02X ", buffer[3]);
         }
       }
       else
@@ -274,7 +274,7 @@ void NibeGw::sendAck()
   esphome::delay(1);
   if(directionPin)
     directionPin->digital_write(false);
-  ESP_LOGVV(TAG, "Sent ACK");
+  ESP_LOGV(TAG, "Sent ACK");
 }
 
 void NibeGw::sendNak()
@@ -287,7 +287,7 @@ void NibeGw::sendNak()
   esphome::delay(1);
   if(directionPin)
     directionPin->digital_write(false);
-  ESP_LOGVV(TAG, "Sent NACK");
+  ESP_LOGV(TAG, "Sent NACK");
 }
 
 boolean NibeGw::shouldAckNakSend(byte address)
