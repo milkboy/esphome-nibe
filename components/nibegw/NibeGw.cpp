@@ -37,6 +37,7 @@ void NibeGw::connect()
 {
   if (!connectionState)
   {
+    ESP_LOGW(TAG, "Not connected");
     state = STATE_WAIT_START;
     connectionState = true;
     if (directionPin)
@@ -72,6 +73,7 @@ void NibeGw::setSendAcknowledge(boolean val)
 
 boolean NibeGw::messageStillOnProgress()
 {
+  ESP_LOGV(TAG, "...");
   if (!connectionState) {
     ESP_LOGW(TAG, "No connection");
     return false;
