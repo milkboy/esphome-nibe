@@ -102,9 +102,10 @@ int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
 }
 
 void NibeGwComponent::setup() {
-  esphome::delay(2000);
+    esphome::delay(10000);
     ESP_LOGI(TAG, "Starting up");
     gw_->connect();
+    ESP_LOGI(TAG, "Started up");
 }
 
 void NibeGwComponent::dump_config() {
@@ -122,6 +123,7 @@ void NibeGwComponent::dump_config() {
     }
     ESP_LOGCONFIG(TAG, " Read Port: %d", udp_read_port_);
     ESP_LOGCONFIG(TAG, " Write Port: %d", udp_write_port_);
+    ESP_LOGCONFIG(TAG, " Connected: %d", is_connected_);
 }
 
 void NibeGwComponent::loop()
