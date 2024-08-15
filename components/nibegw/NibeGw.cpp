@@ -73,7 +73,6 @@ void NibeGw::setSendAcknowledge(boolean val)
 
 boolean NibeGw::messageStillOnProgress()
 {
-  ESP_LOGV(TAG, "...");
   if (!connectionState) {
     ESP_LOGW(TAG, "No connection");
     return false;
@@ -88,7 +87,6 @@ boolean NibeGw::messageStillOnProgress()
     ESP_LOGD(TAG, "CRCFail/OK/Wait");
     return true;
 
-  ESP_LOGI(TAG, "No data");
   return false;
 }
 
@@ -213,6 +211,7 @@ int NibeGw::checkNibeMessage(const byte* const data, byte len)
 {
   if (len <= 0)
     return 0;
+  ESP_LOGV(TAG, "Checking mesage: %s", data);
 
   if (len >= 1)
   {
