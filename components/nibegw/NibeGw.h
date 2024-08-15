@@ -79,6 +79,7 @@ class NibeGw
 {
   private:
     eState state;
+    eState oldState;
     boolean connectionState;
     esphome::GPIOPin* directionPin;
     byte buffer[MAX_DATA_LEN];
