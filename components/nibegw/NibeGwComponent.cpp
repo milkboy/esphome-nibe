@@ -19,6 +19,7 @@ NibeGwComponent::NibeGwComponent(esphome::GPIOPin* dir_pin)
 void NibeGwComponent::callback_msg_received(const byte* const data, int len)
 {
     if (!is_connected_) {
+        ESP_LOGW(TAG, "Cannot send, not conencted");
         return;
     }
 
