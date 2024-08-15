@@ -96,6 +96,7 @@ void NibeGw::loop()
     return;
   if (state != oldState) {
     ESP_LOGV(TAG, "Nibe GW loop state changed");
+    oldState = state;
   }
 
   switch (state)
