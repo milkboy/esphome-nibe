@@ -105,7 +105,7 @@ void NibeGwComponent::setup() {
 }
 
 void NibeGwComponent::dump_config() {
-    ESP_LOGCONFIG(TAG, "NibeGw");
+    ESP_LOGCONFIG(TAG, "NibeGw MWI");
     for (auto target = udp_targets_.begin(); target != udp_targets_.end(); target++)
     {
         ESP_LOGCONFIG(TAG, " Target: %s:%d",
