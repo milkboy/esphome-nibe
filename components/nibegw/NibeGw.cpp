@@ -118,7 +118,7 @@ void NibeGw::loop()
           {
             index = 2;
             state = STATE_WAIT_DATA;
-            ESP_LOGD(TAG, "Frame start found");
+            ESP_LOGV(TAG, "Frame start found");
           }
         }
       }
@@ -128,7 +128,7 @@ void NibeGw::loop()
       if (RS485->available() > 0)
       {
         byte b = RS485->read();
-        ESP_LOGVV(TAG, "%02X", b);
+        ESP_LOGV(TAG, "%02X", b);
 
         if (index >= MAX_DATA_LEN)
         {
@@ -253,6 +253,7 @@ int NibeGw::checkNibeMessage(const byte* const data, byte len)
 
 void NibeGw::sendData(const byte* const data, byte len)
 {
+  ESP_LOGV(TAG, "Want to send message of %d bytes to heat pump: %s", len, debug_buf);
   if(directionPin)
     directionPin->digital_write(true);
   RS485->write_array(data, len);

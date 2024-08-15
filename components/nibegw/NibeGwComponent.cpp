@@ -66,6 +66,7 @@ void NibeGwComponent::token_request_cache(AsyncUDPPacket& udp, byte address, byt
 
 static int copy_request(const request_data_type& request, byte* data)
 {
+    ESP_LOGV(TAG, "Copy request %s", data);
     auto len = std::min(request.size(), (size_t)MAX_DATA_LEN);
     std::copy_n(request.begin(), len, data);
     return len;
@@ -73,7 +74,7 @@ static int copy_request(const request_data_type& request, byte* data)
 
 int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
 {
-    ESP_LOGD(TAG, "callback msh token received");
+    ESP_LOGV(TAG, "callback msg token received");
 
     request_key_type key {data[2], static_cast<byte>(token)};
 
@@ -84,7 +85,7 @@ int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
             if (!queue.empty()) {
                 auto len = copy_request(queue.front(), data);
                 queue.pop();
-                ESP_LOGD(TAG, "Response to address: 0x%x token: 0x%x bytes: %d", std::get<0>(key), std::get<1>(key), len);
+                ESP_LOGV(TAG, "Response to address: 0x%x token: 0x%x bytes: %d", std::get<0>(key), std::get<1>(key), len);
                 return len;
             }
         }
@@ -93,7 +94,7 @@ int NibeGwComponent::callback_msg_token_received(eTokenType token, byte* data)
     {
         const auto& it = requests_const_.find(key);
         if (it != requests_const_.end()) {
-            ESP_LOGD(TAG, "Constant to address: 0x%x token: 0x%x bytes: %d", std::get<0>(key), std::get<1>(key), it->second.size());
+            ESP_LOGV(TAG, "Constant to address: 0x%x token: 0x%x bytes: %d", std::get<0>(key), std::get<1>(key), it->second.size());
             return copy_request(it->second, data);
         }
     }
@@ -109,7 +110,7 @@ void NibeGwComponent::setup() {
 }
 
 void NibeGwComponent::dump_config() {
-    ESP_LOGCONFIG(TAG, "NibeGw MWI");
+    ESP_LOGCONFIG(TAG, "NibeGw MWI custom");
     for (auto target = udp_targets_.begin(); target != udp_targets_.end(); target++)
     {
         ESP_LOGCONFIG(TAG, " Target: %s:%d",
