@@ -74,7 +74,7 @@ void NibeGw::setSendAcknowledge(boolean val)
 boolean NibeGw::messageStillOnProgress()
 {
   if (!connectionState) {
-    ESP_LOGV(TAG, "No connection");
+    ESP_LOGV(TAG, "messageStillonProgress: No connection");
     return false;
   }
 
@@ -93,6 +93,7 @@ boolean NibeGw::messageStillOnProgress()
 void NibeGw::loop()
 {
   if (!connectionState)
+    ESP_LOGV(TAG, "loop: No connection");
     return;
   if (state != oldState) {
     ESP_LOGV(TAG, "Nibe GW loop state changed %d -> %d", oldState, state);
